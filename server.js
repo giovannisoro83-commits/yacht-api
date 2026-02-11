@@ -6,23 +6,26 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Yacht API running 🚤");
+});
+
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
 app.get("/api/yachts", (req, res) => {
-  res.json([
-    { name: "Azzam", length: 180 },
-    { name: "Eclipse", length: 162.5 }
-  ]);
+  const yachts = [
+    { name: "Ketch Live AIS", length: 60 },
+    { name: "Ocean Spirit", length: 72 },
+    { name: "Blue Horizon", length: 85 },
+    { name: "Sea Falcon", length: 95 }
+  ];
+  res.json(yachts);
 });
 
-/*
-  CRUCIALE PER RENDER
-  DEVE usare process.env.PORT
-*/
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, "0.0.0.0", () => {
-  console.log("Server running on port " + PORT);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
