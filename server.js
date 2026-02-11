@@ -1,14 +1,28 @@
-{
-  "name": "yacht-api",
-  "version": "1.0.0",
-  "description": "Yacht CO2 API backend",
-  "main": "server.js",
-  "type": "module",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.18.2"
-  }
-}
+  import express from "express";
+import cors from "cors";
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
+app.get("/api/yachts", (req, res) => {
+  res.json([
+    { name: "Azzam", length: 180 },
+    { name: "Eclipse", length: 162.5 }
+  ]);
+});
+
+/*
+  CRUCIALE PER RENDER
+  DEVE usare process.env.PORT
+*/
+const PORT = process.env.PORT;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server running on port " + PORT);
+});
